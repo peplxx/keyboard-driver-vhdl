@@ -17,6 +17,7 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+
 module keyboard_4_4 (
 	input clk, 
 	input [3:0] col,
@@ -61,7 +62,8 @@ always@(posedge clk) begin
 	endcase
 	
 	 bits = 0;
-	 buff <= {~row[0],~row[1],~row[2],~row[3], ~col[0],~col[1],~col[2],~col[3]};
+	 buff <= {row[0],row[1],row[2],row[3],col[0],col[1],col[2],col[3]};
+	 buff <= ~buff;
 	 
 	 for (i = 0;i<8;i = i+1)begin
 		if (buff[i])begin
@@ -70,7 +72,6 @@ always@(posedge clk) begin
 	 end
 	 if (~col != 4'b0000 && bits == 2)begin
 		 keyCode <= buff;
-		 
 	 end
 end
 
